@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<ui:composition template="template2.xhtml">
+
+    <ui:define name="body">
+        <h4>Enter your email to login</h4>
+        <div class="well">
+            
+            <div class="form-group">
+                
+                <h:form>
+                <h:outputText value="Email" /> 
+                <h:inputText class="form-control" binding="#{input1}" id="email" value="#{participantController.email}" size="50" maxlength="45" required="true"/>
+                <h:message for="email" style="color: red; font-size: 0.7em" />
+                <h:commandButton id="login" value="Login" action="#{participantController.login()}">
+                    <f:setPropertyActionListener target="#{participantMeetingController.email}" value="#{participantController.email}" />
+                </h:commandButton>
+                 
+                
+              
+                <h:button id="create" value="Create New Participant" outcome="participant"/>
+                </h:form>
+                <h:outputText escape="false" value="#{participantController.login()}" />
+            </div>
+        </div>
+    </ui:define>
+
+</ui:composition>
+</html>

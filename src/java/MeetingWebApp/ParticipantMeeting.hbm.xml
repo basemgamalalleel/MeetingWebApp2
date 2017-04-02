@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 12/03/2017 11:53:06 ?? by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="MeetingWebApp.ParticipantMeeting" table="participant_meeting" catalog="meetingdb" optimistic-lock="version">
+        <id name="participantMeetingId" type="java.lang.Integer">
+            <column name="PARTICIPANT_MEETING_ID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="meeting" class="MeetingWebApp.Meeting" fetch="select">
+            <column name="MEETING_ID" not-null="true" />
+        </many-to-one>
+        <many-to-one name="participant" class="MeetingWebApp.Participant" fetch="select">
+            <column name="PARTICIPANT_EMAIL" length="120" not-null="true" />
+        </many-to-one>
+        <many-to-one name="status" class="MeetingWebApp.Status" fetch="select">
+            <column name="STATUS_ID" not-null="true" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>
