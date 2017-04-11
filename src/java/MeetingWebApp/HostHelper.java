@@ -26,8 +26,8 @@ public class HostHelper {
     public int insertHost(Host a){
         int result = 0;
         
-        String sql = "insert into Host(HOST_EMAIL, HOST_NAME) " 
-                + "values (:email, :name)";
+        String sql = "insert into host(HOST_EMAIL) "
+                + "values (:email)";
         
         try {
             // starting a transaction if on wisn't active
@@ -41,7 +41,7 @@ public class HostHelper {
             q.addEntity(Host.class);
             
             // binding values to the placeholders in the query
-            q.setParameter("name", a.getHostName());
+            
             q.setParameter("email", a.getHostEmail());
 
             
@@ -96,7 +96,7 @@ public class HostHelper {
         List<Host> host = null;
         
         // create the query, but as a String
-        String sql = "select * from Host where HOST_EMAIL like :email and HOST_NAME like :name";
+        String sql = "select * from Host where HOST_EMAIL like :email";
         
         try {
             // if the transaction isn't active, begin it
@@ -111,7 +111,7 @@ public class HostHelper {
             // associate the Category POJO and table with the query 
             q.addEntity(Host.class);
             
-            q.setParameter("name", a.getHostName());
+          
             q.setParameter("email", a.getHostEmail());
             
             // execute the query and cast the returned List

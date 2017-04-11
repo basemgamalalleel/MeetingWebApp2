@@ -8,9 +8,6 @@
             <column name="HOST_EMAIL" length="120" />
             <generator class="assigned" />
         </id>
-        <property name="hostName" type="string">
-            <column name="HOST_NAME" length="45" not-null="true" />
-        </property>
         <set name="meetings" table="meeting" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="HOST_EMAIL" length="120" not-null="true" />

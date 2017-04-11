@@ -93,12 +93,12 @@ public class MeetingHelper {
         return meetingList;
     }
     
-    public int getNumberMeeting(){
+    public int getNumberMeeting(String hostEmail){
         
         List<Meeting> meetingList = null;
         
         // create the query, but as a String
-        String sql = "select * from meeting";
+        String sql = "select * from meeting where HOST_EMAIL = :hostEmail";
         
         try {
             // if the transaction isn't active, begin it
@@ -111,7 +111,7 @@ public class MeetingHelper {
             
             // associate the Category POJO and table with the query 
             q.addEntity(Meeting.class);
-            
+            q.setParameter("hostEmail", hostEmail);
             // execute the query and cast the returned List
             // as a List of Films
             meetingList = (List<Meeting>) q.list();
@@ -121,6 +121,35 @@ public class MeetingHelper {
         
         return meetingList.size();
     }
+    
+    public int getMeetingId(){
+        
+        List<Meeting> meetingList = null;
+        
+        // create the query, but as a String
+        String sql = "select * from meeting order by MEETING_ID desc limit 1";
+        
+        try {
+            // if the transaction isn't active, begin it
+            if (!this.session.getTransaction().isActive()){
+                session.beginTransaction();
+            }
+            
+            // create the actual query that will get executed
+            SQLQuery q = session.createSQLQuery(sql);
+            // associate the Film POJO and table with the query
+            q.addEntity(Meeting.class);
+            // execute the query and cast the returned List
+            // as a List of Films
+            meetingList = (List<Meeting>) q.list();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        
+        // return just the id of the first Film in the List of Films
+        return meetingList.get(0).getMeetingId();
+    }
+    
     
     
 }

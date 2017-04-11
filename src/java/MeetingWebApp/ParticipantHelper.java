@@ -27,28 +27,6 @@ public class ParticipantHelper {
         }
     }
 
-    public List getParticipants() {
-        List<Participant> participantList = null;
-
-        String sql = "select * from participant";
-
-        try {
-            if (!this.session.getTransaction().isActive()) {
-                session.beginTransaction();
-            }
-
-            SQLQuery q = session.createSQLQuery(sql);
-            q.addEntity(Participant.class);
-
-            participantList = (List<Participant>) q.list();
-
-        } catch (Exception e) {
-            e.printStackTrace();;
-        }
-
-        return participantList;
-    }
-
     public int insertParticipant(Participant a) {
         int result = 0;
 
@@ -110,6 +88,49 @@ public class ParticipantHelper {
         }
 
         return participant.size();
+    }
+    
+    public List getMeetingParticipant(String participantEmail){
+        
+        List<Participant> meetingList = null;
+        
+        // create the query, but as a String
+        // :start and :end, are placeholders for actual values
+        // passed in as parameters and hard-coded
+        /*String sql = "select * from participant_meeting "
+                + "where PARTICIPANT_EMAIL = :participantEmail "
+                + "limit :start, :end";*/
+        
+        String sql = "select * from meeting, participant_meeting, participant "
+                + "where meeting.MEETING_ID = participant_meeting.MEETING_ID "
+                + "and participant_meeting.PARTICIPANT_EMAIL = participant.PARTICIPANT_EMAIL "
+                + "and participant.PARTICIPANT_EMAIL = :participantEmail";
+        
+        
+        
+        try {
+            // if the transaction isn't active, begin it
+            if (!this.session.getTransaction().isActive()) {
+                session.beginTransaction();
+            } 
+            
+            // create the actual query that will get executed
+            SQLQuery q = session.createSQLQuery(sql);
+            
+            // associate the Category POJO and table with the query 
+            q.addEntity(Meeting.class);
+            // bind values to the query placeholders
+            
+            q.setParameter("participantEmail", participantEmail);
+            
+            // execute the query and cast the returned List
+            // as a List of Films
+            meetingList = (List<Participant>) q.list();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+                
+        return meetingList;
     }
 
 }

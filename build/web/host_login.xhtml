@@ -7,24 +7,22 @@
     <ui:composition template="template2.xhtml">
 
         <ui:define name="body">
-            <h4>Enter your email to login</h4>
+            <h3>Enter your email to login</h3>
             <div class="well">
 
                 <div class="form-group">
 
                     <h:form>
 
-                        <h:outputText value="Name" /> 
-                        <h:inputText class="form-control" id="name" value="#{hostController.name}" size="50" maxlength="45" required="true"/>
-                        <h:message for="name" style="color: red; font-size: 0.7em" />
                         <h:outputText value="Email" /> 
                         <h:inputText class="form-control" id="email" value="#{hostController.email}" size="50" maxlength="45" required="true"/>
                         <h:message for="email" style="color: red; font-size: 0.7em" />
                         
-                        <h:commandButton id="login" value="Login" action="#{hostController.login()}" >
+                        <h:commandButton id="login" class="btn btn-primary btn-lg" value="Login" action="#{hostController.login()}" >
                             <f:setPropertyActionListener target="#{meetingController.email}" value="#{hostController.email}" />
                         </h:commandButton>
-                        <h:button id="create" value="Create New Host" outcome="host"/>
+                        <h:button id="create" class="btn btn-primary btn-lg" value="Create New Host" outcome="host"/>
+                        <h:button id="back" class="btn btn-default btn-lg" value="Back" outcome="index"/>
                         
                     </h:form>
                 </div>

@@ -60,21 +60,24 @@ public class HostController implements Serializable {
     }
 
     public String getResponse() {
-        if (name != null && email != null) {
+        if (email != null) {
 
-            // initializing an actor
-            host = new Host(email, name);
+            // initializing an host
+            host = new Host(email);
 
-            //calling our helper that inserts a row into the actor table
-            if (helper.insertHost(host) == 1) {
+            //calling our helper that inserts a row into the host table
+            if (helper.searchHost(host) == 1) {
+                response = "Host Already Exists.";
+                return response;
+            } else if (helper.insertHost(host) == 1) {
                 // insert was successful
                 email = null;
-                name = null;
+
                 response = "Host Added.";
                 return response;
             } else {
                 // inser failed
-                name = null;
+
                 email = null;
                 response = "Host Not Added.";
             }
@@ -108,33 +111,32 @@ public class HostController implements Serializable {
         }
         return "invalid input";
     }*/
-    
-    public String login(){
+    public String login() {
 
-         if (name != null && email != null) {
-            
-            // initializing an actor
-            host = new Host(email, name);
-            
-            //calling our helper that inserts a row into the actor table
-            if (helper.searchHost(host) == 1 ){
+        if (email != null) {
+
+            // initializing an host
+            host = new Host(email);
+
+            //calling our helper that inserts a row into the host table
+            if (helper.searchHost(host) == 1) {
                 // insert was successful
                 email = null;
-                name = null;
+
                 return "updateMeeting";
-                
+
             } else {
                 // inser failed
-                name = null;
+
                 email = null;
-                 return "host_login";
+                return "host_login";
             }
         } else {
             // don't dis[lay a message when the user hasn't input 
             // a first and last name
             return "";
         }
-        
+
     }
-    
+
 }

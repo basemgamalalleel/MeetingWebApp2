@@ -30,16 +30,28 @@ public class MeetingController implements Serializable {
     String location;
     String response;
     Host host;
-    int selectedId;
-    
-    String hostName;
+   
     String email;
     
     DataModel meetingName;
     
     private int recordCount;
     private int pageSize = 5;
-    private Meeting selected;
+    Meeting selected;
+    
+    // this is our class that uses Hibernate to query the database
+    MeetingHelper helper;
+
+    // this is our meeting POJO
+    Meeting meeting;
+    
+    public MeetingController() {
+        
+        helper = new MeetingHelper();
+        startId = 0;
+        //recordCount = helper.getNumberMeeting(email);
+        
+    }
 
     public String getName() {
         return name;
@@ -88,15 +100,13 @@ public class MeetingController implements Serializable {
     public void setHost(Host host) {
         this.host = host;
     }
-    
-    
 
     public String getResponse() {
         // if the firstname and lastname components in the actor.xhtml
         // have data in them, then insert it into the database
         if (name != null && description != null && date != null && time != null && location != null) {
             
-            host = new Host(email, hostName);
+            host = new Host(email);
 
             // initialize an actor so that it contains the data
             // input in the actor.xhtml
@@ -137,20 +147,6 @@ public class MeetingController implements Serializable {
         this.response = response;
     }
 
-    // this is our class that uses Hibernate to query the database
-    MeetingHelper helper;
-
-    // this is our Actor POJO
-    Meeting meeting;
-    
-    public MeetingController() {
-        
-        helper = new MeetingHelper();
-        startId = 0;
-        recordCount = helper.getNumberMeeting();
-        
-    }
-    
     public String next(){
         startId = startId + (pageSize + 1);
         recreateModel();
@@ -170,7 +166,7 @@ public class MeetingController implements Serializable {
     
     private void recreateModel(){
         meetingName = null;
-        recordCount = helper.getNumberMeeting();
+        recordCount = helper.getNumberMeeting(email);
     }
     
     public String previous(){
@@ -188,6 +184,7 @@ public class MeetingController implements Serializable {
     }
     
     public boolean isHasNextPage(){
+        recordCount = helper.getNumberMeeting(email);
         if (startId + pageSize < recordCount){
             return true;
         }
@@ -220,27 +217,11 @@ public class MeetingController implements Serializable {
         this.selected = selected;
     }
 
-    public int getSelectedId() {
-        return selectedId;
-    }
-
-    public void setSelectedId(int selectedId) {
-        this.selectedId = selectedId;
-    }
-
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
-    }
-    
-    public String getMeeting (String email){
-        this.email = email;
-        if(this.email != null){
-        return "updateMeeting";
-        }
-        return "host_login";
-    }
+    }   
 }

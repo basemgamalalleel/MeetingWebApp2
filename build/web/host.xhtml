@@ -4,30 +4,24 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-<ui:composition template="template2.xhtml">
+    <ui:composition template="template2.xhtml">
 
-    <ui:define name="body">
-        <h3>Host Page</h3>
-        <div class="col-sm-6">
+        <ui:define name="body">
+            <h3>Host Email Address</h3>
             <h:form>
-                <h:panelGrid columns ="3">
-                    <h:outputText value="Name" />
-                    <h:inputText id="name" value="#{hostController.name}"
-                                 size="50" maxlength="45" required="true" label="Name" />
-                    <h:message for="name" style="color: red; font-size: 0.7em" />
-
-                    <h:outputText value="Email Address" />
-                    <h:inputText id="email" value="#{hostController.email}"
+                <div class="form-group">
+                    
+                    <h:inputText id="email" class="form-control" value="#{hostController.email}"
                                  size="50" maxlength="45" required="true" label="Email" />
                     <h:message for="email" style="color: red; font-size: 0.7em" />
-                </h:panelGrid>
-                <h:commandButton id="submit" value="submit" action="host" />
-                <h:commandButton value="clear" type="reset" />
+                </div>
+                <h:commandButton id="submit" class="btn btn-primary btn-lg" value="submit" action="host" />
+                <h:button id="back" class="btn btn-default btn-lg" value="Back" outcome="host_login"/>
             </h:form>
             <h:outputText escape="false" value="#{hostController.response}" />
 
-        </div>
-    </ui:define>
 
-</ui:composition>
+        </ui:define>
+
+    </ui:composition>
 </html>

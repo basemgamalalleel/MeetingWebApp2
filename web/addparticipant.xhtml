@@ -5,47 +5,23 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-<ui:composition template="template2.xhtml">
+    <ui:composition template="template2.xhtml">
 
-    <ui:define name="body">
-        <h:form>
-        <div class="form-group">
-                        <h:outputText value="Participant1" />
-                        <h:inputText class="form-control" id="Participant1" value="#{participantController.email}" size="50" maxlength="120" label="Participant1" />
-                        <h:message for="Participant1" style="color: red; font-size: 0.7em" />
-                    </div>
-            
-            <div class="form-group">
-                        <h:outputText value="Participant2" />
-                        <h:inputText class="form-control" id="Participant2" value="#{participantController.email}" size="50" maxlength="120" label="Participant2" />
-                        <h:message for="Participant2" style="color: red; font-size: 0.7em" />
-                    </div>
-            
-            <div class="form-group">
-                        <h:outputText value="Participant3" />
-                        <h:inputText class="form-control" id="Participant3" value="#{participantController.email}" size="50" maxlength="120" label="Participant3" />
-                        <h:message for="Participant3" style="color: red; font-size: 0.7em" />
-                    </div>
-            
-            <div class="form-group">
-                        <h:outputText value="Participant4" />
-                        <h:inputText class="form-control" id="Participant4" value="#{participantController.email}" size="50" maxlength="120" label="Participant4" />
-                        <h:message for="Participant4" style="color: red; font-size: 0.7em" />
-                    </div>
-            
-            <div class="form-group">
-                        <h:outputText value="Participant5" />
-                        <h:inputText class="form-control" id="Participant5" value="#{participantController.email}" size="50" maxlength="120" label="Participant5" />
-                        <h:message for="Participant5" style="color: red; font-size: 0.7em" />
-                    </div>
-            
-            <h:commandButton id="submit" value="Submit" action="#{participantController.participantintuer()}" />
-            <!--<h:commandButton id="submit" value="Submit" action="#{participantController.participantintuer()}" >
-                <f:setPropertyActionListener target="#{participantController.meetingId}" value="#{meetingController.selected.meetingId}" />
-                        </h:commandButton>-->
-            
+        <ui:define name="body">
+            <h3>Participant Email Address</h3>
+            <h:form>
+                <div class="form-group">
+                    
+                    <h:inputText class="form-control" id="Participant" value="#{participantMeetingController.participantEmail}" size="50" maxlength="120" label="Participant1" />
+                    <h:message for="Participant" style="color: red; font-size: 0.7em" />
+                </div>
+
+                <h:commandButton id="submit" class="btn btn-primary btn-lg" value="Submit" action="addparticipant" />
+                <h:button id="back" class="btn btn-default btn-lg" value="Back" outcome="updateMeeting"/>
+
             </h:form>
-    </ui:define>
+            <h:outputText escape="false" value="#{participantMeetingController.response}" />
+        </ui:define>
 
-</ui:composition>
+    </ui:composition>
 </html>

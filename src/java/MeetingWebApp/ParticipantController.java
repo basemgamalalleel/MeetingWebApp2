@@ -23,19 +23,17 @@ public class ParticipantController implements Serializable {
     int meetingId;
     String email;
     String response;
-    
-    DataModel participants;
-    
-    
+    Meeting selected;
+
+    DataModel meetings;
+
     // this is our class that uses Hibernare to query the host table
     ParticipantHelper helper;
-    
+
     // this is our Host POJO
     Participant participant;
+
     
-    /**
-     * Creates a new instance of ParticipantController
-     */
     public ParticipantController() {
         helper = new ParticipantHelper();
     }
@@ -56,16 +54,17 @@ public class ParticipantController implements Serializable {
         this.email = email;
     }
 
-
     public String getResponse() {
-            if (email != null) {
-            
-            
-            // initializing an actor
+        if (email != null) {
+
+            // initializing an Participant
             participant = new Participant(email);
-            
-            //calling our helper that inserts a row into the actor table
-            if (helper.insertParticipant(participant) == 1 ){
+
+            //calling our helper that inserts a row into the Participant table
+            if (helper.searchParticipant(participant) == 1) {
+                response = "Participant Already Exists.";
+                return response;
+            } else if (helper.insertParticipant(participant) == 1) {
                 // insert was successful
                 email = null;
                 response = "Participant Added.";
@@ -77,7 +76,7 @@ public class ParticipantController implements Serializable {
             }
         } else {
             // don't display a message when the user hasn't input 
-            // a name and email
+            // an email
             response = " ";
         }
         return response;
@@ -100,47 +99,66 @@ public class ParticipantController implements Serializable {
     }
 
     public void setparticipant(Participant participant) {
-        if (participants == null){
-            participants = new ListDataModel(helper.getParticipants());
-        }
         this.participant = participant;
     }
 
-    public DataModel getParticipants() {
-        return participants;
+    public DataModel getMeetings() {
+        if (meetings == null) {
+            email = participant.getParticipantEmail();
+            meetings = new ListDataModel(helper.getMeetingParticipant(email));
+        }
+        return meetings;
     }
 
-    public void setParticipants(DataModel participants) {
-        this.participants = participants;
+    public void setMeetings(DataModel meetings) {
+        this.meetings = meetings;
+    }
+
+    public Meeting getSelected() {
+        return selected;
+    }
+
+    public void setSelected(Meeting selected) {
+        this.selected = selected;
     }
     
-   public String login(){
+    
 
-         if (email != null) {
-            
-            // initializing an actor
+    public String prepareView(){
+        // get all of the data associated with the selected meeting
+        selected = (Meeting) getMeetings().getRowData();
+        // return the name of the page that will load when the hyperlink
+        // is selected
+        return "viewMeetingParticipant";
+    }
+
+    public String login() {
+
+        if (email != null) {
+
+            // initializing an Participant
             participant = new Participant(email);
-            
-            //calling our helper that inserts a row into the actor table
-            if (helper.searchParticipant(participant) == 1 ){
+
+            //calling our helper that inserts a row into the Participant table
+            if (helper.searchParticipant(participant) == 1) {
                 // insert was successful
                 email = null;
                 return "participantMeeting";
-                
+
             } else {
                 // inser failed
                 email = null;
-                 return "participant_login";
+                return "participant_login";
             }
         } else {
             // don't dis[lay a message when the user hasn't input 
-            // a first and last name
-            return "participant_login";
+            // an email
+            return " ";
         }
-        
+
     }
-   
-   public String participantintuer() {
+
+    /*public String participantintuer() {
             if (email != null) {
             
             
@@ -169,6 +187,5 @@ public class ParticipantController implements Serializable {
             response = " ";
         }
         return response;
-    }
-    
+    }*/
 }

@@ -12,20 +12,20 @@ public class Host  implements java.io.Serializable {
 
 
      private String hostEmail;
-     private String hostName;
+     
      private Set<Meeting> meetings = new HashSet<Meeting>(0);
 
     public Host() {
     }
 
 	
-    public Host(String hostEmail, String hostName) {
+    public Host(String hostEmail) {
         this.hostEmail = hostEmail;
-        this.hostName = hostName;
+       
     }
-    public Host(String hostEmail, String hostName, Set<Meeting> meetings) {
+    public Host(String hostEmail, Set<Meeting> meetings) {
        this.hostEmail = hostEmail;
-       this.hostName = hostName;
+     
        this.meetings = meetings;
     }
    
@@ -36,13 +36,7 @@ public class Host  implements java.io.Serializable {
     public void setHostEmail(String hostEmail) {
         this.hostEmail = hostEmail;
     }
-    public String getHostName() {
-        return this.hostName;
-    }
     
-    public void setHostName(String hostName) {
-        this.hostName = hostName;
-    }
     public Set<Meeting> getMeetings() {
         return this.meetings;
     }
