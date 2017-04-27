@@ -7,42 +7,43 @@
     <ui:composition template="template2.xhtml">
 
         <ui:define name="body">
+            <div class="col-lg-4">
             <div class="well">
             <h:form>
-                <h:panelGrid columns="3">
+                
+                <h:panelGrid columns="2" class="table">
 
                     <h:outputText value="Name" />
-                    <h:inputText class="form-control" id="name" value="#{meetingController.selected.meetingName}" size="50" maxlength="45" required="true" label="Meeting Name" />
-                    <h:message for="name" style="color: red; font-size: 0.7em" />
+                    <h:outputText value="#{meetingController.selected.meetingName}" />
+                    
 
                     <h:outputText value="Description" />
-                    <h:inputTextarea class="form-control" id="description" value="#{meetingController.selected.meetingDescription}"
-                                         rows="4" cols="40" required="true" label="Meeting Description" />
-                    <h:message for="description" style="color: red; font-size: 0.7em" />
+                    <h:outputText value="#{meetingController.selected.meetingDescription}" />
+                    
 
                     <h:outputText value="Date" />
-                    <h:inputText class="form-control" id="date" value="#{meetingController.selected.meetingDate}" size="50" maxlength="45" required="true" label="Meeting Date">
-                            <f:convertDateTime pattern="MM/dd/yyyy"/>
-                    </h:inputText>
-                    <h:message  for="date" style="color: red; font-size: 0.7em" />
+                    <h:outputText value="#{meetingController.selected.meetingDate}" />
+                    
 
                     <h:outputText value="Time" />
-                    <h:inputText class="form-control" id="time" value="#{meetingController.selected.meetingTime}" size="50" maxlength="45" required="true" label="Meeting Time">
-                            <f:convertDateTime pattern="HH:mm"/>
-                    </h:inputText>
-                    <h:message for="time" style="color: red; font-size: 0.7em" />
+                    <h:outputText value="#{meetingController.selected.meetingTime}" />
+                    
 
                     <h:outputText value="Location" />
-                    <h:inputText class="form-control" id="location" value="#{meetingController.selected.meetingLocation}" size="50" maxlength="45" required="true" label="Meeting Location" />
-                    <h:message for="location" style="color: red; font-size: 0.7em" />
+                    <h:outputText value="#{meetingController.selected.meetingLocation}" />
+                    
 
                 </h:panelGrid>
-                <h:commandButton id="update" class="btn btn-primary btn-lg" value="Update" action="browse" />
-                <h:commandButton id="delete" class="btn btn-danger btn-lg" value="Delete" action="browse" />
+                   
+                <!--<h:commandButton id="update" class="btn btn-primary btn-lg" value="Update" action="browse" />-->
+                <h:commandButton id="delete" class="btn btn-danger btn-lg" value="Delete" action="#{meetingController.deleteMeeting(meetingController.selected.meetingId)}">
+                    
+                </h:commandButton>
                 <h:button id="back" class="btn btn-default btn-lg" value="Back" outcome="updateMeeting"/>
             </h:form>
                 </div>
-            <h:outputText escape="false" value="#{meetingController.response}" />
+                
+            </div>
         </ui:define>
 
     </ui:composition>

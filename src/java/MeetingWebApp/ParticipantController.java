@@ -24,6 +24,7 @@ public class ParticipantController implements Serializable {
     String email;
     String response;
     Meeting selected;
+    int statusId;
 
     DataModel meetings;
 
@@ -33,7 +34,6 @@ public class ParticipantController implements Serializable {
     // this is our Host POJO
     Participant participant;
 
-    
     public ParticipantController() {
         helper = new ParticipantHelper();
     }
@@ -44,6 +44,14 @@ public class ParticipantController implements Serializable {
 
     public void setMeetingId(int meetingId) {
         this.meetingId = meetingId;
+    }
+
+    public int getStatusId() {
+        return statusId;
+    }
+
+    public void setStatusId(int statusId) {
+        this.statusId = statusId;
     }
 
     public String getEmail() {
@@ -103,10 +111,8 @@ public class ParticipantController implements Serializable {
     }
 
     public DataModel getMeetings() {
-        if (meetings == null) {
             email = participant.getParticipantEmail();
             meetings = new ListDataModel(helper.getMeetingParticipant(email));
-        }
         return meetings;
     }
 
@@ -121,10 +127,9 @@ public class ParticipantController implements Serializable {
     public void setSelected(Meeting selected) {
         this.selected = selected;
     }
-    
-    
 
-    public String prepareView(){
+    public String prepareView(int meetingId) {
+        this.meetingId = meetingId;
         // get all of the data associated with the selected meeting
         selected = (Meeting) getMeetings().getRowData();
         // return the name of the page that will load when the hyperlink
@@ -158,34 +163,34 @@ public class ParticipantController implements Serializable {
 
     }
 
-    /*public String participantintuer() {
-            if (email != null) {
-            
-            
-            // initializing an actor
-            participant = new Participant(email);
-            
-            //calling our helper that inserts a row into the actor table
-            if (helper.searchParticipant(participant) == 1 ){
-                if(helper.insertParticipant(participant) == 1){
-                    email = null;
-                    response = "Participant Added.";
-                    return response;
-                }else{
-                    email = null;
-                    response = "Participant Not Added.";
+    public String updateParticipantStatus() {
+        if (statusId > 0) {
+            if (statusId == 1) {
+                if (helper.participantMeetingStatusUpdate(statusId, meetingId, email) == 0) {
+                    statusId = 0;
+                    return "Status Not Update";
+                } else {
+                    statusId = 0;
+                    return "Status Update to Yes";
                 }
-                
-            } else {
-                // inser failed
-                email = null;
-                response = "Participant Already Exists.";
+            } else if (statusId == 2) {
+                if (helper.participantMeetingStatusUpdate(statusId, meetingId, email) == 0) {
+                    statusId = 0;
+                    return "Status Not Update";
+                } else {
+                    statusId = 0;
+                    return "Status Update to No";
+                }
+            }else if (statusId == 3) {
+                if (helper.participantMeetingStatusUpdate(statusId, meetingId, email) == 0) {
+                    statusId = 0;
+                    return "Status Not Update";
+                } else {
+                    statusId = 0;
+                    return "Status Update to Maybe";
+                }
             }
-        } else {
-            // don't display a message when the user hasn't input 
-            // a name and email
-            response = " ";
         }
-        return response;
-    }*/
+        return " ";
+    }
 }

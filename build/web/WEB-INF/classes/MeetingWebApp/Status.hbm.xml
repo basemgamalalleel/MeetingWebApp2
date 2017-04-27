@@ -3,7 +3,7 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated 12/03/2017 11:53:06 ?? by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="MeetingWebApp.Status" table="status" catalog="meetingdb" optimistic-lock="version">
+    <class name="MeetingWebApp.Status" table="status" catalog="meetingdb2" optimistic-lock="version">
         <id name="statusId" type="int">
             <column name="STATUS_ID" />
             <generator class="assigned" />

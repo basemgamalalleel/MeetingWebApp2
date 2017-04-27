@@ -24,7 +24,7 @@
                                 <f:facet name="header">
                                     <h:outputText value=" " />
                                 </f:facet>
-                                <h:commandLink class="btn btn-info" action="#{participantController.prepareView()}" value="View" />
+                                <h:commandLink class="btn btn-info" action="#{participantController.prepareView(item.meetingId)}" value="View" />
 
                             </h:column>
                         </h:dataTable>

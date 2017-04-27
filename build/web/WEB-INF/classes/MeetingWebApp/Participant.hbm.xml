@@ -3,7 +3,7 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated 12/03/2017 11:53:06 ?? by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="MeetingWebApp.Participant" table="participant" catalog="meetingdb" optimistic-lock="version">
+    <class name="MeetingWebApp.Participant" table="participant" catalog="meetingdb2" optimistic-lock="version">
         <id name="participantEmail" type="string">
             <column name="PARTICIPANT_EMAIL" length="120" />
             <generator class="assigned" />

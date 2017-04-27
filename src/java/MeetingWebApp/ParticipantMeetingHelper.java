@@ -95,7 +95,7 @@ public class ParticipantMeetingHelper {
     
     public int getParticipantMeetingNum(int meetingId){
         
-        List<Meeting> meetingList = null;
+        List<ParticipantMeeting> meetingList = null;
         
         // create the query, but as a String
         String sql = "select * from participant_meeting where MEETING_ID = :id";
@@ -110,15 +110,133 @@ public class ParticipantMeetingHelper {
             SQLQuery q = session.createSQLQuery(sql);
             
             // associate the Category POJO and table with the query 
-            q.addEntity(Meeting.class);
+            q.addEntity(ParticipantMeeting.class);
             q.setParameter("id", meetingId);
             // execute the query and cast the returned List
             // as a List of Films
-            meetingList = (List<Meeting>) q.list();
+            meetingList = (List<ParticipantMeeting>) q.list();
         } catch (Exception e){
             e.printStackTrace();
         }
         
         return meetingList.size();
     }
+    
+    public List getParticipant(int meetingId) {
+        
+        List<ParticipantMeeting> participant = null;
+        
+        // create the query, but as a String
+        // :id is a placeholder for actual value
+        // passed in as parameter
+        String sql = "select * from participant_meeting where MEETING_ID = :id";
+        
+        try {
+            
+            // if the transaction isn't active, begin it
+            if (!this.session.getTransaction().isActive()) {
+                session.beginTransaction();
+            } 
+            
+            // create the actual query that will get executed
+            SQLQuery q = session.createSQLQuery(sql);
+            
+            // associate the Film POJO and table with the query 
+            q.addEntity(ParticipantMeeting.class);
+            
+            // bind value to the query placeholder
+            q.setParameter("id", meetingId);
+            
+            // execute the query and cast the return value
+            // to a Film
+            participant = (List<ParticipantMeeting>) q.list();
+            
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        
+        return participant;
+    }
+    
+    public Status getStatus (int meetingId) {
+        
+        Status status = null;
+        
+        // create the query, but as a String
+        // :id is a placeholder for actual value
+        // passed in as parameter
+        String sql = "select * from status, participant_meeting "
+                + "where status.STATUS_ID = participant_meeting.STATUS_ID "
+                + "and participant_meeting.MEETING_ID = :id";
+        
+        try {
+            
+            // if the transaction isn't active, begin it
+            if (!this.session.getTransaction().isActive()) {
+                session.beginTransaction();
+            } 
+            
+            // create the actual query that will get executed
+            SQLQuery q = session.createSQLQuery(sql);
+            
+            // associate the Film POJO and table with the query 
+            q.addEntity(Status.class);
+            
+            // bind value to the query placeholder
+            q.setParameter("id", meetingId);
+            
+            // execute the query and cast the return value
+            // to a Film
+            status = (Status) q.uniqueResult();
+            
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        
+        return status;
+    }
+    
+    public String getStatusType (int statusId) {
+        
+        String statusType = null;
+        
+        // create the query, but as a String
+        // :id is a placeholder for actual value
+        // passed in as parameter
+        /*String sql = "select * from status, participant_meeting "
+                + "where status.STATUS_ID = participant_meeting.STATUS_ID "
+                + "and participant_meeting.MEETING_ID = :id";*/
+        String sql = "select * from status "
+                + "where status.STATUS_ID = :id";
+        
+        try {
+            
+            // if the transaction isn't active, begin it
+            if (!this.session.getTransaction().isActive()) {
+                session.beginTransaction();
+            } 
+            
+            // create the actual query that will get executed
+            SQLQuery q = session.createSQLQuery(sql);
+            
+            // associate the Film POJO and table with the query 
+            q.addEntity(Meeting.class);
+            
+            // bind value to the query placeholder
+            q.setParameter("id", statusId);
+            
+            // execute the query and cast the return value
+            // to a Film
+            statusType = (String) q.uniqueResult();
+            
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        
+        return statusType;
+    }
+    
+    
+    
+    
 }

@@ -132,5 +132,38 @@ public class ParticipantHelper {
                 
         return meetingList;
     }
+    
+    public int participantMeetingStatusUpdate(int statusId, int meetingId, String participantEmail) {
+        int result = 0;
+        String sql = "UPDATE participant_meeting "
+                + "SET STATUS_ID = :statusId "
+                + "WHERE PARTICIPANT_EMAIL = :participantEmail "
+                + "and MEETING_ID = :meetingId";
 
+        try {
+            if (!this.session.getTransaction().isActive()) {
+                session.beginTransaction();
+            }
+            SQLQuery q = session.createSQLQuery(sql);
+            // associate the Meeting POJO and table with the query 
+            q.addEntity(ParticipantMeeting.class);
+            // bind values to the query placeholders
+            q.setParameter("meetingId", meetingId);
+            q.setParameter("statusId", statusId);
+            q.setParameter("participantEmail", participantEmail);
+            
+            // execute the query
+            result = q.executeUpdate();
+            // commit the changes to the database
+            // this is what allows the changes to be
+            // truely viewed in the database
+            // but it also makes the transaction inactive
+            // which means it will have to be started again
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
 }

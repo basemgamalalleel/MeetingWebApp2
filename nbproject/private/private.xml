@@ -4,10 +4,13 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Fawziah/Documents/NetBeansProjects/MeetingWebApp2/web/updateMeeting.xhtml</file>
-            <file>file:/C:/Users/Fawziah/Documents/NetBeansProjects/MeetingWebApp2/src/java/MeetingWebApp/MeetingHelper.java</file>
+            <file>file:/C:/Users/Fawziah/Documents/NetBeansProjects/MeetingWebApp2/src/java/MeetingWebApp/StatusController.java</file>
+            <file>file:/C:/Users/Fawziah/Documents/NetBeansProjects/MeetingWebApp2/src/java/MeetingWebApp/ParticipantController.java</file>
+            <file>file:/C:/Users/Fawziah/Documents/NetBeansProjects/MeetingWebApp2/src/java/MeetingWebApp/ParticipantMeetingController.java</file>
+            <file>file:/C:/Users/Fawziah/Documents/NetBeansProjects/MeetingWebApp2/web/viewMeetingParticipant.xhtml</file>
             <file>file:/C:/Users/Fawziah/Documents/NetBeansProjects/MeetingWebApp2/src/java/MeetingWebApp/MeetingController.java</file>
             <file>file:/C:/Users/Fawziah/Documents/NetBeansProjects/MeetingWebApp2/src/java/MeetingWebApp/ParticipantMeetingHelper.java</file>
-            <file>file:/C:/Users/Fawziah/Documents/NetBeansProjects/MeetingWebApp2/src/java/MeetingWebApp/ParticipantHelper.java</file>
+            <file>file:/C:/Users/Fawziah/Documents/NetBeansProjects/MeetingWebApp2/web/viewParticipant.xhtml</file>
         </group>
     </open-files>
 </project-private>
