@@ -15,7 +15,7 @@
                     <h:form>
 
                         <h:outputText value="Email" />
-                        <h:inputText class="form-control" binding="#{input1}" id="email" value="#{participantController.email}" size="50" maxlength="45" required="true"/>
+                        <h:inputText class="form-control" id="email" value="#{participantController.email}" size="50" maxlength="45" required="true"/>
                         <h:message for="email" style="color: red; font-size: 0.7em" />
 
                         <h:commandButton id="login" class="btn btn-primary btn-lg" value="Login" action="#{participantController.login()}">
